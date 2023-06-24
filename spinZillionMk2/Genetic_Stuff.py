@@ -5,5 +5,60 @@ import matplotlib as plt
 import random
 import copy
 
-POPULATION_SIZE = 0
+POPULATION_SIZE = 10
 MUTATION_RATE = 0
+
+class Genetic_Stuff:
+    def __init__(self, pop_size, mutation_rate) -> None:
+        #Population Size
+        self.pop_size = pop_size
+        self.mutation_rate = mutation_rate
+
+        #These three should always be the same length because each Puzzle and Fitness value should match with a Solver
+        self.population = []
+        self.puzzles = []
+        self.fitness = []
+
+        self.prime_puzzle = self.puzzle_gen
+
+        for i in range(pop_size):
+            solver = self.solver_gen(50)
+            self.population.append(solver)
+            self.puzzles.append(copy.deepcopy(self.prime_puzzle))
+
+    def puzzle_gen(self):
+        puzzle = Spin_Model()
+        puzzle.set_row(0, [0,5,3,1,5])
+        puzzle.set_row(1, [0,4,4,2])
+        puzzle.set_row(2, [3,2,2,1,4])
+        puzzle.set_row(3, [1,5,3,3,4])
+        puzzle.set_row(4, [0,5,1,2])
+        return puzzle
+
+    def solver_gen(self, move_cnt):
+        solver = []
+        for p in range(move_cnt):
+            if p > 0:
+                if solver[p-1] == 0:
+                    solver.append(random.randint(1, 4))
+                elif solver[p-1] == 1:
+                    num = random.randint(0, 3)
+                    if num >= 2:
+                        num += 1
+                    solver.append(num)
+                elif solver[p-1] == 2:
+                    num = random.randint(0, 3)
+                    if num >= 1:
+                        num += 1
+                    solver.append(num)
+                elif solver[p-1] == 3:
+                    num = random.randint(0, 3)
+                    solver.append(num)
+                elif solver[p-1] == 4:
+                    num = random.randint(0, 3)
+                    if num == 3:
+                        num += 1
+                    solver.append(num)
+            else:
+                solver.append(random.randint(0, 4))
+        return solver
