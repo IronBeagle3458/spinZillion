@@ -10,7 +10,7 @@ MUTATION_RATE = 0
 
 class Genetic_Stuff:
     def __init__(self, pop_size, mutation_rate) -> None:
-        #Population Size
+        #Preset Variables
         self.pop_size = pop_size
         self.mutation_rate = mutation_rate
 
@@ -19,7 +19,10 @@ class Genetic_Stuff:
         self.puzzles = []
         self.fitness = []
 
-        self.prime_puzzle = self.puzzle_gen
+        self.prime_puzzle = self.puzzle_gen()
+
+        #Traker of generations, for graphing
+        self.gen_cnt = 0
 
         for i in range(pop_size):
             solver = self.solver_gen(50)
@@ -62,3 +65,20 @@ class Genetic_Stuff:
             else:
                 solver.append(random.randint(0, 4))
         return solver
+
+    def interpreter(self, puzzle, move):
+        if move == 0:
+            puzzle.shift()
+        elif move == 1:
+            puzzle.move(0, 0)
+        elif move == 2:
+            puzzle.move(0, 1)
+        elif move == 3:
+            puzzle.move(1, 0)
+        elif move == 4:
+            puzzle.move(1, 1)
+
+    def run(self):
+        for i in range(self.pop_size):
+            for p in range(len(self.population[i])):
+                self.interpreter(self.puzzles[i], self.population[i][p])
