@@ -95,71 +95,12 @@ class Spin_Model:
         print(self.row_3)
         print(self.row_4)
 
-    def win_check(self, move_cnt):
+    def win_check(self):
         if self.row_0[1] == self.row_0[2] and self.row_0[3] == self.row_0[4] and self.row_0[1] == self.row_0[4]:
             if self.row_2[1] == self.row_2[2] and self.row_2[3] == self.row_2[4] and self.row_2[1] == self.row_2[4]:
                 if self.row_3[1] == self.row_3[2] and self.row_3[3] == self.row_3[4] and self.row_3[1] == self.row_3[4]:
                     if self.row_1[0] == self.row_1[1] and self.row_1[2] == self.row_1[3] and self.row_1[0] == self.row_1[3]:
                         if self.row_4[0] == self.row_4[1] and self.row_4[2] == self.row_4[3] and self.row_4[0] == self.row_4[3]:
                             self.win = True
-                            self.moves = move_cnt
                             return True
         return False
-
-    def score_game(self):
-        score = 0
-        if self.row_0[0] == 0:
-            score += 1
-        if self.row_0[1] == self.row_0[2]:
-            score += 1
-        if self.row_0[2] == self.row_0[3]:
-            score += 1
-        if self.row_0[3] == self.row_0[4]:
-            score += 1
-        if self.row_0[4] == self.row_0[1]:
-            score += 1
-        
-        if self.row_1[0] == self.row_1[1]:
-            score += 1
-        if self.row_1[1] == self.row_1[2]:
-            score += 1
-        if self.row_1[2] == self.row_1[3]:
-            score += 1
-        if self.row_1[3] == self.row_1[0]:
-            score += 1
-
-        if self.row_2[0] == 0:
-            score += 1
-        if self.row_2[1] == self.row_2[2]:
-            score += 1
-        if self.row_2[2] == self.row_2[3]:
-            score += 1
-        if self.row_2[3] == self.row_2[4]:
-            score += 1
-        if self.row_2[4] == self.row_2[1]:
-            score += 1
-
-        if self.row_3[0] == 0:
-            score += 1
-        if self.row_3[1] == self.row_3[2]:
-            score += 1
-        if self.row_3[2] == self.row_3[3]:
-            score += 1
-        if self.row_3[3] == self.row_3[4]:
-            score += 1
-        if self.row_3[4] == self.row_3[1]:
-            score += 1
-
-        if self.row_4[0] == self.row_4[1]:
-            score += 1
-        if self.row_4[1] == self.row_4[2]:
-            score += 1
-        if self.row_4[2] == self.row_4[3]:
-            score += 1
-        if self.row_4[3] == self.row_4[0]:
-            score += 1
-
-        if self.win:
-            score == 10000 * (1/self.moves)
-
-        return score

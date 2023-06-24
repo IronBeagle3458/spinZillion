@@ -74,11 +74,59 @@ class Genetic_Stuff:
         elif move == 2:
             puzzle.move(0, 1)
         elif move == 3:
-            puzzle.move(1, 0)
+            puzzle.move(2, 0)
         elif move == 4:
-            puzzle.move(1, 1)
+            puzzle.move(2, 1)
 
     def run(self):
         for i in range(self.pop_size):
-            for p in range(len(self.population[i])):
-                self.interpreter(self.puzzles[i], self.population[i][p])
+            for move in self.population[i]:
+                self.interpreter(self.puzzles[i], move)
+
+    def score_fitness(self):
+        for i in range(self.pop_size):
+            #How well the solver did
+            fitness = 0
+            #tracks what step of the basic algorithm is used
+            algor_cnt = 0
+            for move in self.population[i]:
+                if algor_cnt == 0 and move == 0:
+                    algor_cnt += 1
+                elif algor_cnt == 1 and move == 1:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 2 and move == 0:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 3 and move == 2:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 4 and move == 0:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 5 and move == 3:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 6 and move == 0:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 7 and move == 1:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 8 and move == 0:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 9 and move == 2:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 10 and move == 4:
+                    algor_cnt += 1
+                    fitness += 1
+                elif algor_cnt == 11 and move == 0:
+                    algor_cnt = 0
+                    fitness += 1
+                else:
+                    algor_cnt = 0
+            if self.puzzles[i].win_check():
+                fitness += 100
+            self.fitness.append(fitness)
